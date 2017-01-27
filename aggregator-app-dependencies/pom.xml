@@ -1,12 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.springframework.cloud.stream.app</groupId>
-    <artifactId>aggregator-app-dependencies</artifactId>
-    <version>1.0.0.BUILD-SNAPSHOT</version>
+	<parent>
+		<artifactId>spring-cloud-dependencies-parent</artifactId>
+		<groupId>org.springframework.cloud</groupId>
+		<version>1.2.1.RELEASE</version>
+		<relativePath/>
+	</parent>
 
-    
+	<groupId>org.springframework.cloud.stream.app</groupId>
+	<artifactId>aggregator-app-dependencies</artifactId>
+	<version>1.0.0.BUILD-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>aggregator-app-dependencies</name>
+	<description>Spring Cloud Stream Aggregator App Dependencies</description>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud.stream.app</groupId>
+				<artifactId>spring-cloud-starter-stream-aggregator</artifactId>
+				<version>1.0.0.BUILD-SNAPSHOT</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 </project>

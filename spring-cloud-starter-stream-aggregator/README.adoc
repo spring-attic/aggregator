@@ -1,0 +1,57 @@
+//tag::ref-doc[]
+= Aggregator Processor
+
+Use the `aggregator` application to combine multiple messages into one, based on some correlation mechanism.
+
+This processor is fully based on the Aggregator component from http://docs.spring.io/spring-integration/reference/html/messaging-routing-chapter.html#aggregator[Spring Integration].
+So, please, consult there for use-cases and functionality.
+
+== Options
+
+The **$$aggregator$$** $$processor$$ has the following options:
+
+//tag::configuration-properties[]
+$$aggregator.correlation$$:: $$SpEL expression for correlation key$$ *($$String$$, default: `correlationId` header)*
+$$aggregator.release$$:: $$SpEL expression for release strategy$$ *($$String$$, default:  group size == sequenceSize header.)*
+$$aggregator.aggregation$$:: $$SpEL expression for aggregation strategy$$ *($$String$$, default: collection of payloads)*
+$$aggregator.groupTimeout$$:: $$SpEL expression for a timeout to expire uncompleted groups$$ *($$String$$, default: none)*
+$$aggregator.messageStoreType$$:: $$Message store type.
+Possible values are: simple, jdbc, redis, mongodb, gemfire $$ *($$String$$, default: `simple`)*
+$$aggregator.messageStoreEntity$$:: $$Persistence message store entity: table prefix in RDBMS, collection name in MongoDb, etc$$ *($$String$$, default: none)*
+//end::configuration-properties[]
+
+By default the `aggregator` processor uses:
+- `HeaderAttributeCorrelationStrategy(IntegrationMessageHeaderAccessor.CORRELATION_ID)` - for `correlation`;
+- `SequenceSizeReleaseStrategy` - for `release`;
+- `DefaultAggregatingMessageGroupProcessor`  - for `aggregation`;
+- `SimpleMessageStore` - for `messageStoreType`.
+
+The `aggregator` application can be configured for persistent `MessageGroupStore` http://docs.spring.io/spring-integration/reference/html/system-management-chapter.html#message-store[implementations].
+The configuration for target technology is fully based on the Spring Boot auto-configuration.
+But default JDBC, MongoDb and Redis auto-configurations are excluded.
+They are `@Import` ed basing on the `aggregator.messageStoreType` configuration property.
+Consult Spring Boot http://docs.spring.io/spring-boot/docs/current/reference/html/[Reference Manual] for auto-configuration for particular technology you use for `aggregator`.
+
+The JDBC `JdbcMessageStore` requires particular tables in the target data base.
+You can find schema scripts for appropriate RDBMS vendors in the `org.springframework.integration.jdbc` package of the `spring-integration-jdbc` jar.
+Those scripts can be used for automatic data base initialization via Spring Boot.
+
+For example:
+```
+java -jar aggregator-rabbit-1.0.0.RELEASE
+               --aggregator.message-store-type=jdbc
+               --spring.datasource.url=jdbc:h2:mem:test
+               --spring.datasource.schema=org/springframework/integration/jdbc/schema-h2.sql
+```
+
+//end::ref-doc[]
+== Building with Maven
+
+```
+$> mvn package
+```
+
+== Code of Conduct
+This project adheres to the Contributor Covenant link:CODE_OF_CONDUCT.adoc[code of conduct].
+By participating, you  are expected to uphold this code.
+Please report unacceptable behavior to spring-code-of-conduct@pivotal.io.
