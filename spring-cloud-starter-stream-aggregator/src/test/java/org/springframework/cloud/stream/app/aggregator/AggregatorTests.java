@@ -66,7 +66,7 @@ import com.gemstone.gemfire.cache.Cache;
  * @author Artem Bilan
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, properties = "debug=true")
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @DirtiesContext
 public abstract class AggregatorTests {
 
