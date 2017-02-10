@@ -43,6 +43,10 @@ import org.springframework.util.StringUtils;
 import com.gemstone.gemfire.cache.Region;
 
 /**
+ * A helper class containing configuration classes for particular technologies
+ * to expose an appropriate {@link org.springframework.integration.store.MessageStore} bean
+ * via matched configuration properties.
+ *
  * @author Artem Bilan
  */
 class MessageStoreConfiguration {
@@ -121,6 +125,5 @@ class MessageStoreConfiguration {
 		}
 
 	}
-
 
 }
