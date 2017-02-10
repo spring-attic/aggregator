@@ -96,12 +96,16 @@
 						<version>${project.version}</version>
 					</bom>
 					<generatedApps>
-						<aggregator/>
+						<aggregator>
+							<extraRepositories>
+								<gemstone-release-cache />
+							</extraRepositories>
+						</aggregator>
 					</generatedApps>
 					<extraRepositories>
 						<repository>
 							<id>gemstone-release-cache</id>
-							<url>http://repo.spring.io/gemstone-release-cache/</url>
+							<url>http://repo.spring.io/gemstone-release-cache</url>
 							<name>Gemfire Release Repository</name>
 							<snapshotEnabled>false</snapshotEnabled>
 						</repository>

@@ -38,7 +38,7 @@
 				<repository>
 					<id>gemstone-release-cache</id>
 					<name>Gemfire Release Repository</name>
-					<url>http://repo.spring.io/gemstone-release-cache/</url>
+					<url>http://repo.spring.io/gemstone-release-cache</url>
 				</repository>
 				<repository>
 					<id>spring-snapshots</id>
