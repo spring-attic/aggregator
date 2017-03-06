@@ -18,6 +18,10 @@
 	<name>aggregator-app-dependencies</name>
 	<description>Spring Cloud Stream Aggregator App Dependencies</description>
 
+	<properties>
+		<gemfire.version>8.2.3</gemfire.version>
+	</properties>
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>

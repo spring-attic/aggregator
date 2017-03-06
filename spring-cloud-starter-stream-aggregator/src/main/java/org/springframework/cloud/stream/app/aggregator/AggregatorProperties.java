@@ -30,12 +30,12 @@ public class AggregatorProperties {
 	static final String PREFIX = "aggregator";
 
 	/**
-	 * SpEL expression for correlation key. Default to {@code correlationId} header
+	 * SpEL expression for correlation key. Default to correlationId header
 	 */
 	private Expression correlation;
 
 	/**
-	 * SpEL expression for release strategy. Default is based on the {@code sequenceSize} header
+	 * SpEL expression for release strategy. Default is based on the sequenceSize header
 	 */
 	private Expression release;
 

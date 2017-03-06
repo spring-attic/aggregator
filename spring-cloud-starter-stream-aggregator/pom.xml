@@ -98,14 +98,14 @@
 					<generatedApps>
 						<aggregator>
 							<extraRepositories>
-								<gemstone-release-cache />
+								<gemstone-release-pivotal />
 							</extraRepositories>
 						</aggregator>
 					</generatedApps>
 					<extraRepositories>
 						<repository>
-							<id>gemstone-release-cache</id>
-							<url>http://repo.spring.io/gemstone-release-cache</url>
+							<id>gemstone-release-pivotal</id>
+							<url>http://repo.spring.io/gemstone-release-pivotal</url>
 							<name>Gemfire Release Repository</name>
 							<snapshotEnabled>false</snapshotEnabled>
 						</repository>
