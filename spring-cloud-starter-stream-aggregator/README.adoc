@@ -12,11 +12,11 @@ The **$$aggregator$$** $$processor$$ has the following options:
 
 //tag::configuration-properties[]
 $$aggregator.aggregation$$:: $$SpEL expression for aggregation strategy. Default is collection of payloads$$ *($$Expression$$, default: `$$<none>$$`)*
-$$aggregator.correlation$$:: $$SpEL expression for correlation key. Default to {@code correlationId} header$$ *($$Expression$$, default: `$$<none>$$`)*
+$$aggregator.correlation$$:: $$SpEL expression for correlation key. Default to correlationId header$$ *($$Expression$$, default: `$$<none>$$`)*
 $$aggregator.group-timeout$$:: $$SpEL expression for timeout to expiring uncompleted groups$$ *($$Expression$$, default: `$$<none>$$`)*
 $$aggregator.message-store-entity$$:: $$Persistence message store entity: table prefix in RDBMS, collection name in MongoDb, etc$$ *($$String$$, default: `$$<none>$$`)*
 $$aggregator.message-store-type$$:: $$Message store type$$ *($$String$$, default: `$$<none>$$`)*
-$$aggregator.release$$:: $$SpEL expression for release strategy. Default is based on the {@code sequenceSize} header$$ *($$Expression$$, default: `$$<none>$$`)*
+$$aggregator.release$$:: $$SpEL expression for release strategy. Default is based on the sequenceSize header$$ *($$Expression$$, default: `$$<none>$$`)*
 $$spring.data.mongodb.authentication-database$$:: $$Authentication database name.$$ *($$String$$, default: `$$<none>$$`)*
 $$spring.data.mongodb.database$$:: $$Database name.$$ *($$String$$, default: `$$<none>$$`)*
 $$spring.data.mongodb.field-naming-strategy$$:: $$Fully qualified name of the FieldNamingStrategy to use.$$ *($$java.lang.Class<?>$$, default: `$$<none>$$`)*
