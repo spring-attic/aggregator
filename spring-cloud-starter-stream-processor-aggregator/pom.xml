@@ -10,10 +10,10 @@
 		<version>1.0.0.BUILD-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>spring-cloud-starter-stream-aggregator</artifactId>
+	<artifactId>spring-cloud-starter-stream-processor-aggregator</artifactId>
 	<packaging>jar</packaging>
-	<name>spring-cloud-starter-stream-aggregator</name>
-	<description>Spring Cloud Stream Aggregator Starter</description>
+	<name>spring-cloud-starter-stream-processor-aggregator</name>
+	<description>Spring Cloud Stream Aggregator Processor Starter</description>
 
 	<dependencies>
 		<dependency>
@@ -96,11 +96,11 @@
 						<version>${project.version}</version>
 					</bom>
 					<generatedApps>
-						<aggregator>
+						<aggregator-processor>
 							<extraRepositories>
 								<gemstone-release-pivotal />
 							</extraRepositories>
-						</aggregator>
+						</aggregator-processor>
 					</generatedApps>
 					<extraRepositories>
 						<repository>

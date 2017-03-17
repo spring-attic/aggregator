@@ -15,7 +15,7 @@
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>spring-cloud-starter-stream-aggregator</module>
+		<module>spring-cloud-starter-stream-processor-aggregator</module>
 		<module>aggregator-app-dependencies</module>
 	</modules>
 

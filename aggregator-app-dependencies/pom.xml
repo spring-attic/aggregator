@@ -26,7 +26,7 @@
 		<dependencies>
 			<dependency>
 				<groupId>org.springframework.cloud.stream.app</groupId>
-				<artifactId>spring-cloud-starter-stream-aggregator</artifactId>
+				<artifactId>spring-cloud-starter-stream-processor-aggregator</artifactId>
 				<version>1.0.0.BUILD-SNAPSHOT</version>
 			</dependency>
 		</dependencies>

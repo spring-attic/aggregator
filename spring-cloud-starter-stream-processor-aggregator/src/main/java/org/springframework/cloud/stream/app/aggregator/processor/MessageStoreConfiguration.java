@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.springframework.cloud.stream.app.aggregator;
+package org.springframework.cloud.stream.app.aggregator.processor;
 
 import java.util.Collections;
 
