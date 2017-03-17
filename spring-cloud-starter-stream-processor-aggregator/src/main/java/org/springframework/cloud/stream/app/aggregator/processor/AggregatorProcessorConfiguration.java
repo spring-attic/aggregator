@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.springframework.cloud.stream.app.aggregator;
+package org.springframework.cloud.stream.app.aggregator.processor;
 
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
@@ -46,7 +46,7 @@ import org.springframework.integration.store.MessageGroupStore;
  */
 @EnableBinding(Processor.class)
 @EnableConfigurationProperties(AggregatorProperties.class)
-public class AggregatorConfiguration {
+public class AggregatorProcessorConfiguration {
 
 	@Autowired
 	private AggregatorProperties properties;

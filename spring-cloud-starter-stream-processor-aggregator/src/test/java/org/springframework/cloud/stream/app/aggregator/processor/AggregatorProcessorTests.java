@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.springframework.cloud.stream.app.aggregator;
+package org.springframework.cloud.stream.app.aggregator.processor;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.instanceOf;
@@ -68,7 +68,7 @@ import com.gemstone.gemfire.cache.Cache;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @DirtiesContext
-public abstract class AggregatorTests {
+public abstract class AggregatorProcessorTests {
 
 	@Autowired
 	protected Processor channels;
@@ -82,7 +82,7 @@ public abstract class AggregatorTests {
 	@Autowired
 	protected AggregatingMessageHandler aggregatingMessageHandler;
 
-	public static class DefaultAggregatorTests extends AggregatorTests {
+	public static class DefaultAggregatorTests extends AggregatorProcessorTests {
 
 		@Test
 		public void test() throws Exception {
@@ -126,7 +126,7 @@ public abstract class AggregatorTests {
 			"aggregator.aggregation=#this.?[payload == 'foo'].![payload]",
 			"aggregator.message-store-type=mongodb",
 			"aggregator.message-store-entity=aggregatorTest" })
-	public static class CustomPropsAndMongoMessageStoreAggregatorTests extends AggregatorTests {
+	public static class CustomPropsAndMongoMessageStoreAggregatorTests extends AggregatorProcessorTests {
 
 		@Test
 		public void test() throws Exception {
@@ -160,7 +160,7 @@ public abstract class AggregatorTests {
 	@TestPropertySource(properties = {
 			"aggregator.message-store-type=gemfire",
 			"aggregator.groupTimeout=10" })
-	public static class GroupTimeOutAndGemfireMessageStoreAggregatorTests extends AggregatorTests {
+	public static class GroupTimeOutAndGemfireMessageStoreAggregatorTests extends AggregatorProcessorTests {
 
 		@Test
 		public void test() throws Exception {
@@ -189,7 +189,7 @@ public abstract class AggregatorTests {
 
 	@TestPropertySource(properties = "aggregator.message-store-type=redis")
 	@Ignore("Needs real Redis Server to be run")
-	public static class RedisMessageStoreAggregatorTests extends AggregatorTests {
+	public static class RedisMessageStoreAggregatorTests extends AggregatorProcessorTests {
 
 		@Test
 		public void test() throws Exception {
@@ -230,7 +230,7 @@ public abstract class AggregatorTests {
 			"aggregator.message-store-type=jdbc",
 			"spring.datasource.url=jdbc:h2:mem:test",
 			"spring.datasource.schema=org/springframework/integration/jdbc/schema-h2.sql"})
-	public static class JdbcMessageStoreAggregatorTests extends AggregatorTests {
+	public static class JdbcMessageStoreAggregatorTests extends AggregatorProcessorTests {
 
 		@Test
 		public void test() throws Exception {

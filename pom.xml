@@ -15,7 +15,7 @@
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>spring-cloud-starter-stream-aggregator</module>
+		<module>spring-cloud-starter-stream-processor-aggregator</module>
 		<module>aggregator-app-dependencies</module>
 	</modules>
 
@@ -79,6 +79,14 @@
 					<id>spring-milestone-release</id>
 					<name>Spring Milestone Release</name>
 					<url>http://repo.spring.io/libs-milestone</url>
+				</repository>
+				<repository>
+					<id>gemstone-release-pivotal</id>
+					<url>http://repo.spring.io/gemstone-release-pivotal</url>
+					<name>Gemfire Release Repository</name>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
 				</repository>
 			</repositories>
 			<pluginRepositories>
