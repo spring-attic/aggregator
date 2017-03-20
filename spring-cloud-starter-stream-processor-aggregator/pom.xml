@@ -44,6 +44,18 @@
 		<dependency>
 			<groupId>org.springframework.integration</groupId>
 			<artifactId>spring-integration-gemfire</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>com.gemstone.gemfire</groupId>
+					<artifactId>gemfire</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gemstone.gemfire</groupId>
+			<artifactId>gemfire</artifactId>
+			<scope>runtime</scope>
 		</dependency>
 
 		<dependency>

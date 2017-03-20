@@ -29,6 +29,11 @@
 				<artifactId>spring-cloud-starter-stream-processor-aggregator</artifactId>
 				<version>1.0.0.BUILD-SNAPSHOT</version>
 			</dependency>
+			<dependency>
+				<groupId>com.gemstone.gemfire</groupId>
+				<artifactId>gemfire</artifactId>
+				<version>${gemfire.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
