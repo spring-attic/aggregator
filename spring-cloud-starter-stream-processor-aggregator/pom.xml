@@ -55,7 +55,6 @@
 		<dependency>
 			<groupId>com.gemstone.gemfire</groupId>
 			<artifactId>gemfire</artifactId>
-			<scope>runtime</scope>
 		</dependency>
 
 		<dependency>
