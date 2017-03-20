@@ -72,7 +72,7 @@ class MessageStoreConfiguration {
 		}
 
 		@Bean
-		public CustomConversions customConversions() {
+		public CustomConversions mongoCustomConversions() {
 			return new CustomConversions(Collections.singletonList(new MongoDbMessageBytesConverter()));
 		}
 
