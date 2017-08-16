@@ -6,6 +6,29 @@ Use the `aggregator` application to combine multiple messages into one, based on
 This processor is fully based on the Aggregator component from http://docs.spring.io/spring-integration/reference/html/messaging-routing-chapter.html#aggregator[Spring Integration].
 So, please, consult there for use-cases and functionality.
 
+== Input
+
+=== Headers
+
+If the aggregation and correlation logic is based on the default strategies, the `correlationId`, `sequenceNumber` and `sequenceSize` headers must be presented in the incoming message.
+
+=== Payload
+
+Aggregator Processor is fully based on the Spring Integration's `AggregatingMessageHandler` and since correlation and aggregation logic don't require particular types, the input payload can be anything able to be transferred over the network and Spring Cloud Stream Binder.
+If payload is JSON, the `JsonPropertyAccessor` helps to build straightforward SpEL expressions for correlation, release and aggregation functions.
+
+== Output
+
+=== Headers
+
+Returns all headers of the incoming messages that have no conflicts among the group.
+An absent header on one or more messages within the group is not considered a conflict.
+
+=== Payload
+
+By default the `DefaultAggregatingMessageGroupProcessor` is used for aggregation function with meaning return the `java.util.List` of payloads of incoming messages.
+The custom `aggregation` SpEL expression may produce any required object to be sent to the output of the processor.
+
 == Options
 
 The **$$aggregator$$** $$processor$$ has the following options:
@@ -76,21 +99,44 @@ Those scripts can be used for automatic data base initialization via Spring Boot
 
 For example:
 ```
-java -jar aggregator-rabbit-1.0.0.RELEASE
+java -jar aggregator-rabbit-1.0.0.RELEASE.jar
                --aggregator.message-store-type=jdbc
                --spring.datasource.url=jdbc:h2:mem:test
                --spring.datasource.schema=org/springframework/integration/jdbc/schema-h2.sql
 ```
 
-//end::ref-doc[]
-
-== Building with Maven
+== Build
 
 ```
-$> mvn package
+$ ./mvnw clean install -PgenerateApps
+$ cd apps
+```
+You can find the corresponding binder based projects here. 
+You can then cd into one one of the folders and build it:
+```
+$ ./mvnw clean package
+```
+
+== Examples
+
+```
+java -jar aggregator_processor.jar
+               --aggregator.message-store-type=jdbc
+               --spring.datasource.url=jdbc:h2:mem:test
+               --spring.datasource.schema=org/springframework/integration/jdbc/schema-h2.sql
+               
+java -jar aggregator_processor.jar 
+               --spring.data.mongodb.port=0
+               --aggregator.correlation=T(Thread).currentThread().id
+               --aggregator.release="!#this.?[payload == 'bar'].empty"
+               --aggregator.aggregation="#this.?[payload == 'foo'].![payload]"
+               --aggregator.message-store-type=mongodb
+               --aggregator.message-store-entity=aggregatorTest
 ```
 
 == Code of Conduct
 This project adheres to the Contributor Covenant link:CODE_OF_CONDUCT.adoc[code of conduct].
 By participating, you  are expected to uphold this code.
 Please report unacceptable behavior to spring-code-of-conduct@pivotal.io.
+
+//end::ref-doc[]
