@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 the original author or authors.
+ * Copyright 2017-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.geode.cache.GemFireCache;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,7 +46,7 @@ import org.springframework.data.gemfire.RegionFactoryBean;
 import org.springframework.integration.IntegrationMessageHeaderAccessor;
 import org.springframework.integration.aggregator.AggregatingMessageHandler;
 import org.springframework.integration.gemfire.store.GemfireMessageStore;
-import org.springframework.integration.jdbc.JdbcMessageStore;
+import org.springframework.integration.jdbc.store.JdbcMessageStore;
 import org.springframework.integration.mongodb.store.ConfigurableMongoDbMessageStore;
 import org.springframework.integration.redis.store.RedisMessageStore;
 import org.springframework.integration.store.MessageGroupStore;
@@ -58,15 +59,19 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.gemstone.gemfire.cache.Cache;
-
 /**
  * Tests for the Aggregator Processor.
  *
  * @author Artem Bilan
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@SpringBootTest(
+		webEnvironment = SpringBootTest.WebEnvironment.NONE,
+		properties = {
+				"spring.cloud.stream.bindings.output.contentType=application/x-java-serialized-object",
+				"spring.cloud.stream.bindings.input.contentType=application/x-java-serialized-object"
+		}
+)
 @DirtiesContext
 public abstract class AggregatorProcessorTests {
 
@@ -122,9 +127,9 @@ public abstract class AggregatorProcessorTests {
 	@TestPropertySource(properties = {
 			"spring.data.mongodb.port=0",
 			"aggregator.correlation=T(Thread).currentThread().id",
-			"aggregator.release=!#this.?[payload == 'bar'].empty",
+			"aggregator.release=!messages.?[payload == 'bar'].empty",
 			"aggregator.aggregation=#this.?[payload == 'foo'].![payload]",
-			"aggregator.message-store-type=mongodb",
+			"aggregator.messageStoreType=mongodb",
 			"aggregator.message-store-entity=aggregatorTest" })
 	public static class CustomPropsAndMongoMessageStoreAggregatorTests extends AggregatorProcessorTests {
 
@@ -226,10 +231,7 @@ public abstract class AggregatorProcessorTests {
 
 	}
 
-	@TestPropertySource(properties = {
-			"aggregator.message-store-type=jdbc",
-			"spring.datasource.url=jdbc:h2:mem:test",
-			"spring.datasource.schema=org/springframework/integration/jdbc/schema-h2.sql"})
+	@TestPropertySource(properties = "aggregator.message-store-type=jdbc")
 	public static class JdbcMessageStoreAggregatorTests extends AggregatorProcessorTests {
 
 		@Test
@@ -269,25 +271,6 @@ public abstract class AggregatorProcessorTests {
 
 	@SpringBootApplication
 	public static class DefaultAggregatorApplication {
-
-		@Bean
-		@ConditionalOnProperty(prefix = AggregatorProperties.PREFIX,
-				name = "messageStoreType",
-				havingValue = AggregatorProperties.MessageStoreType.GEMFIRE)
-		public CacheFactoryBean gemfireCache() {
-			return new CacheFactoryBean();
-		}
-
-		@Bean
-		@ConditionalOnProperty(prefix = AggregatorProperties.PREFIX,
-				name = "messageStoreType",
-				havingValue = AggregatorProperties.MessageStoreType.GEMFIRE)
-		public RegionFactoryBean<?, ?> gemfireRegion(Cache cache) {
-			LocalRegionFactoryBean<?, ?> localRegionFactoryBean = new LocalRegionFactoryBean<>();
-			localRegionFactoryBean.setCache(cache);
-			localRegionFactoryBean.setName("aggregatorTest");
-			return localRegionFactoryBean;
-		}
 
 	}
 

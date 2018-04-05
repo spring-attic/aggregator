@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 the original author or authors.
+ * Copyright 2017-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +16,13 @@
 
 package org.springframework.cloud.stream.app.aggregator.processor;
 
-import java.util.Collections;
+import java.util.Arrays;
+
+import org.apache.geode.cache.GemFireCache;
+import org.apache.geode.cache.Region;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
@@ -26,21 +30,23 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration;
+import org.springframework.boot.data.geode.autoconfigure.ClientCacheAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.gemfire.client.ClientRegionFactoryBean;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.convert.CustomConversions;
+import org.springframework.data.mongodb.core.convert.MongoCustomConversions;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.integration.gemfire.store.GemfireMessageStore;
-import org.springframework.integration.jdbc.JdbcMessageStore;
+import org.springframework.integration.jdbc.store.JdbcMessageStore;
 import org.springframework.integration.mongodb.store.ConfigurableMongoDbMessageStore;
-import org.springframework.integration.mongodb.support.MongoDbMessageBytesConverter;
+import org.springframework.integration.mongodb.support.BinaryToMessageConverter;
+import org.springframework.integration.mongodb.support.MessageToBinaryConverter;
 import org.springframework.integration.redis.store.RedisMessageStore;
 import org.springframework.integration.store.MessageGroupStore;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.StringUtils;
 
-import com.gemstone.gemfire.cache.Region;
 
 /**
  * A helper class containing configuration classes for particular technologies
@@ -53,10 +59,9 @@ class MessageStoreConfiguration {
 
 	@ConditionalOnClass(ConfigurableMongoDbMessageStore.class)
 	@ConditionalOnProperty(prefix = AggregatorProperties.PREFIX,
-			name = "messageStoreType",
+			name = "message-store-type",
 			havingValue = AggregatorProperties.MessageStoreType.MONGODB)
-	@Import({
-			MongoAutoConfiguration.class,
+	@Import({ MongoAutoConfiguration.class,
 			MongoDataAutoConfiguration.class,
 			EmbeddedMongoAutoConfiguration.class })
 	static class Mongo {
@@ -72,15 +77,16 @@ class MessageStoreConfiguration {
 		}
 
 		@Bean
-		public CustomConversions mongoCustomConversions() {
-			return new CustomConversions(Collections.singletonList(new MongoDbMessageBytesConverter()));
+		public MongoCustomConversions mongoCustomConversions() {
+			return new MongoCustomConversions(Arrays.asList(
+					new MessageToBinaryConverter(), new BinaryToMessageConverter()));
 		}
 
 	}
 
 	@ConditionalOnClass(RedisMessageStore.class)
 	@ConditionalOnProperty(prefix = AggregatorProperties.PREFIX,
-			name = "messageStoreType",
+			name = "message-store-type",
 			havingValue = AggregatorProperties.MessageStoreType.REDIS)
 	@Import(RedisAutoConfiguration.class)
 	static class Redis {
@@ -94,9 +100,19 @@ class MessageStoreConfiguration {
 
 	@ConditionalOnClass(GemfireMessageStore.class)
 	@ConditionalOnProperty(prefix = AggregatorProperties.PREFIX,
-			name = "messageStoreType",
+			name = "message-store-type",
 			havingValue = AggregatorProperties.MessageStoreType.GEMFIRE)
+	@Import(ClientCacheAutoConfiguration.class)
 	static class Gemfire {
+
+		@Bean
+		@ConditionalOnMissingBean
+		public ClientRegionFactoryBean<?, ?> gemfireRegion(GemFireCache cache, AggregatorProperties properties) {
+			ClientRegionFactoryBean<?, ?> clientRegionFactoryBean = new ClientRegionFactoryBean<>();
+			clientRegionFactoryBean.setCache(cache);
+			clientRegionFactoryBean.setName(properties.getMessageStoreEntity());
+			return clientRegionFactoryBean;
+		}
 
 		@Bean
 		public MessageGroupStore messageStore(Region<Object, Object> region) {
@@ -107,7 +123,7 @@ class MessageStoreConfiguration {
 
 	@ConditionalOnClass(JdbcMessageStore.class)
 	@ConditionalOnProperty(prefix = AggregatorProperties.PREFIX,
-			name = "messageStoreType",
+			name = "message-store-type",
 			havingValue = AggregatorProperties.MessageStoreType.JDBC)
 	@Import({
 			DataSourceAutoConfiguration.class,
@@ -116,8 +132,7 @@ class MessageStoreConfiguration {
 
 		@Bean
 		public MessageGroupStore messageStore(JdbcTemplate jdbcTemplate, AggregatorProperties properties) {
-			JdbcMessageStore messageStore = new JdbcMessageStore();
-			messageStore.setJdbcTemplate(jdbcTemplate);
+			JdbcMessageStore messageStore = new JdbcMessageStore(jdbcTemplate);
 			if (StringUtils.hasText(properties.getMessageStoreEntity())) {
 				messageStore.setTablePrefix(properties.getMessageStoreEntity());
 			}

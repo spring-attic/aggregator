@@ -27,6 +27,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration;
+import org.springframework.boot.data.geode.autoconfigure.ClientCacheAutoConfiguration;
 import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MutablePropertySources;
@@ -53,6 +54,7 @@ public class ExcludeStoresAutoConfigurationEnvironmentPostProcessor implements E
 						MongoRepositoriesAutoConfiguration.class.getName() + ", " +
 						EmbeddedMongoAutoConfiguration.class.getName() + ", " +
 						RedisAutoConfiguration.class.getName() + ", " +
+						ClientCacheAutoConfiguration.class.getName() + ", " +
 						RedisRepositoriesAutoConfiguration.class.getName());
 
 		propertySources.addLast(
