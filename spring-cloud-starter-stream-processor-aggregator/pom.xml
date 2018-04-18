@@ -72,10 +72,17 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
+		<!--TODO-->
 		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-geode</artifactId>
+		</dependency>
+
+		<!--<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>geode-spring-boot-starter</artifactId>
-		</dependency>
+		</dependency>-->
 
 		<dependency>
 			<groupId>org.springframework.integration</groupId>
