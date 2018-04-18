@@ -1,6 +1,2 @@
 org.springframework.boot.env.EnvironmentPostProcessor=\
   org.springframework.cloud.stream.app.aggregator.processor.ExcludeStoresAutoConfigurationEnvironmentPostProcessor
-
-# TODO
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-org.springframework.cloud.stream.app.aggregator.processor.ClientCacheAutoConfiguration

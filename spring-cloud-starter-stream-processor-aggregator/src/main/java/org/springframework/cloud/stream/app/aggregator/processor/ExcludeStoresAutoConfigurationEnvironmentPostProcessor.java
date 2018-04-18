@@ -56,7 +56,7 @@ public class ExcludeStoresAutoConfigurationEnvironmentPostProcessor implements E
 						MongoRepositoriesAutoConfiguration.class.getName() + ", " +
 						EmbeddedMongoAutoConfiguration.class.getName() + ", " +
 						RedisAutoConfiguration.class.getName() + ", " +
-						ClientCacheAutoConfiguration.class.getName() + ", " +
+//					TODO	ClientCacheAutoConfiguration.class.getName() + ", " +
 						RedisRepositoriesAutoConfiguration.class.getName());
 
 		propertySources.addLast(
