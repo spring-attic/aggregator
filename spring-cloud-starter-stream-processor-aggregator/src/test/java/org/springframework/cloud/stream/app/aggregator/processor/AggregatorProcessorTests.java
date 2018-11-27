@@ -28,21 +28,16 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.geode.cache.GemFireCache;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.test.autoconfigure.data.mongo.AutoConfigureDataMongo;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.stream.messaging.Processor;
 import org.springframework.cloud.stream.test.binder.MessageCollector;
-import org.springframework.context.annotation.Bean;
-import org.springframework.data.gemfire.CacheFactoryBean;
-import org.springframework.data.gemfire.LocalRegionFactoryBean;
-import org.springframework.data.gemfire.RegionFactoryBean;
 import org.springframework.integration.IntegrationMessageHeaderAccessor;
 import org.springframework.integration.aggregator.AggregatingMessageHandler;
 import org.springframework.integration.gemfire.store.GemfireMessageStore;
@@ -125,12 +120,12 @@ public abstract class AggregatorProcessorTests {
 	}
 
 	@TestPropertySource(properties = {
-			"spring.data.mongodb.port=0",
 			"aggregator.correlation=T(Thread).currentThread().id",
 			"aggregator.release=!messages.?[payload == 'bar'].empty",
 			"aggregator.aggregation=#this.?[payload == 'foo'].![payload]",
 			"aggregator.messageStoreType=mongodb",
 			"aggregator.message-store-entity=aggregatorTest" })
+	@AutoConfigureDataMongo
 	public static class CustomPropsAndMongoMessageStoreAggregatorTests extends AggregatorProcessorTests {
 
 		@Test

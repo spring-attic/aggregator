@@ -33,6 +33,7 @@ import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoCo
 //import org.springframework.boot.data.geode.autoconfigure.ClientCacheAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.gemfire.client.ClientRegionFactoryBean;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.convert.MongoCustomConversions;
@@ -77,7 +78,8 @@ class MessageStoreConfiguration {
 		}
 
 		@Bean
-		public MongoCustomConversions mongoCustomConversions() {
+		@Primary
+		public MongoCustomConversions mongoDbCustomConversions() {
 			return new MongoCustomConversions(Arrays.asList(
 					new MessageToBinaryConverter(), new BinaryToMessageConverter()));
 		}

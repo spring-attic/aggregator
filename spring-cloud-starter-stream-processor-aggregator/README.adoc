@@ -56,31 +56,27 @@ $$spring.datasource.data-username$$:: $$Username of the database to execute DML 
 $$spring.datasource.driver-class-name$$:: $$Fully qualified name of the JDBC driver. Auto-detected based on the URL by default.$$ *($$String$$, default: `$$<none>$$`)*
 $$spring.datasource.generate-unique-name$$:: $$Whether to generate a random datasource name.$$ *($$Boolean$$, default: `$$false$$`)*
 $$spring.datasource.initialization-mode$$:: $$Initialize the datasource with available DDL and DML scripts.$$ *($$DataSourceInitializationMode$$, default: `$$embedded$$`, possible values: `ALWAYS`,`EMBEDDED`,`NEVER`)*
-$$spring.datasource.jndi-name$$:: $$JNDI location of the datasource. Class, url, username & password are ignored when
- set.$$ *($$String$$, default: `$$<none>$$`)*
+$$spring.datasource.jndi-name$$:: $$JNDI location of the datasource. Class, url, username & password are ignored when set.$$ *($$String$$, default: `$$<none>$$`)*
 $$spring.datasource.name$$:: $$Name of the datasource. Default to "testdb" when using an embedded database.$$ *($$String$$, default: `$$<none>$$`)*
 $$spring.datasource.password$$:: $$Login password of the database.$$ *($$String$$, default: `$$<none>$$`)*
-$$spring.datasource.platform$$:: $$Platform to use in the DDL or DML scripts (such as schema-${platform}.sql or
- data-${platform}.sql).$$ *($$String$$, default: `$$all$$`)*
+$$spring.datasource.platform$$:: $$Platform to use in the DDL or DML scripts (such as schema-${platform}.sql or data-${platform}.sql).$$ *($$String$$, default: `$$all$$`)*
 $$spring.datasource.schema$$:: $$Schema (DDL) script resource references.$$ *($$List<String>$$, default: `$$<none>$$`)*
 $$spring.datasource.schema-password$$:: $$Password of the database to execute DDL scripts (if different).$$ *($$String$$, default: `$$<none>$$`)*
 $$spring.datasource.schema-username$$:: $$Username of the database to execute DDL scripts (if different).$$ *($$String$$, default: `$$<none>$$`)*
 $$spring.datasource.separator$$:: $$Statement separator in SQL initialization scripts.$$ *($$String$$, default: `$$;$$`)*
 $$spring.datasource.sql-script-encoding$$:: $$SQL scripts encoding.$$ *($$Charset$$, default: `$$<none>$$`)*
-$$spring.datasource.type$$:: $$Fully qualified name of the connection pool implementation to use. By default, it
- is auto-detected from the classpath.$$ *($$Class<DataSource>$$, default: `$$<none>$$`)*
+$$spring.datasource.type$$:: $$Fully qualified name of the connection pool implementation to use. By default, it is auto-detected from the classpath.$$ *($$Class<DataSource>$$, default: `$$<none>$$`)*
 $$spring.datasource.url$$:: $$JDBC URL of the database.$$ *($$String$$, default: `$$<none>$$`)*
 $$spring.datasource.username$$:: $$Login username of the database.$$ *($$String$$, default: `$$<none>$$`)*
-$$spring.mongodb.embedded.features$$:: $$Comma-separated list of features to enable.$$ *($$Set<Feature>$$, default: `$$[sync_delay]$$`)*
-$$spring.mongodb.embedded.version$$:: $$Version of Mongo to use.$$ *($$String$$, default: `$$3.2.2$$`)*
+$$spring.mongodb.embedded.features$$:: $$Comma-separated list of features to enable. Uses the defaults of the configured version by default.$$ *($$Set<Feature>$$, default: `$$[sync_delay]$$`)*
+$$spring.mongodb.embedded.version$$:: $$Version of Mongo to use.$$ *($$String$$, default: `$$3.5.5$$`)*
 $$spring.redis.database$$:: $$Database index used by the connection factory.$$ *($$Integer$$, default: `$$0$$`)*
 $$spring.redis.host$$:: $$Redis server host.$$ *($$String$$, default: `$$localhost$$`)*
 $$spring.redis.password$$:: $$Login password of the redis server.$$ *($$String$$, default: `$$<none>$$`)*
 $$spring.redis.port$$:: $$Redis server port.$$ *($$Integer$$, default: `$$6379$$`)*
 $$spring.redis.ssl$$:: $$Whether to enable SSL support.$$ *($$Boolean$$, default: `$$false$$`)*
 $$spring.redis.timeout$$:: $$Connection timeout.$$ *($$Duration$$, default: `$$<none>$$`)*
-$$spring.redis.url$$:: $$Connection URL. Overrides host, port, and password. User is ignored. Example:
- redis://user:password@example.com:6379$$ *($$String$$, default: `$$<none>$$`)*
+$$spring.redis.url$$:: $$Connection URL. Overrides host, port, and password. User is ignored. Example: redis://user:password@example.com:6379$$ *($$String$$, default: `$$<none>$$`)*
 //end::configuration-properties[]
 
 By default the `aggregator` processor uses:
