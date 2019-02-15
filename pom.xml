@@ -6,12 +6,12 @@
 	<parent>
 		<groupId>org.springframework.cloud.stream.app</groupId>
 		<artifactId>app-starters-build</artifactId>
-		<version>2.1.0.BUILD-SNAPSHOT</version>
+		<version>2.1.0.RELEASE</version>
 		<relativePath/>
 	</parent>
 
 	<artifactId>aggregator-app-starters-build</artifactId>
-	<version>2.1.0.BUILD-SNAPSHOT</version>
+	<version>2.1.0.RELEASE</version>
 	<packaging>pom</packaging>
 
 	<modules>
@@ -24,7 +24,7 @@
 			<dependency>
 				<groupId>org.springframework.cloud.stream.app</groupId>
 				<artifactId>aggregator-app-dependencies</artifactId>
-				<version>2.1.0.BUILD-SNAPSHOT</version>
+				<version>2.1.0.RELEASE</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
