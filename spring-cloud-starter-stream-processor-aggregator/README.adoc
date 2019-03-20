@@ -3,7 +3,7 @@
 
 Use the `aggregator` application to combine multiple messages into one, based on some correlation mechanism.
 
-This processor is fully based on the Aggregator component from http://docs.spring.io/spring-integration/reference/html/messaging-routing-chapter.html#aggregator[Spring Integration].
+This processor is fully based on the Aggregator component from https://docs.spring.io/spring-integration/reference/html/messaging-routing-chapter.html#aggregator[Spring Integration].
 So, please, consult there for use-cases and functionality.
 
 == Input
@@ -85,11 +85,11 @@ By default the `aggregator` processor uses:
 - `DefaultAggregatingMessageGroupProcessor`  - for `aggregation`;
 - `SimpleMessageStore` - for `messageStoreType`.
 
-The `aggregator` application can be configured for persistent `MessageGroupStore` http://docs.spring.io/spring-integration/reference/html/system-management-chapter.html#message-store[implementations].
+The `aggregator` application can be configured for persistent `MessageGroupStore` https://docs.spring.io/spring-integration/reference/html/system-management-chapter.html#message-store[implementations].
 The configuration for target technology is fully based on the Spring Boot auto-configuration.
 But default JDBC, MongoDb and Redis auto-configurations are excluded.
 They are `@Import` ed basing on the `aggregator.messageStoreType` configuration property.
-Consult Spring Boot http://docs.spring.io/spring-boot/docs/current/reference/html/[Reference Manual] for auto-configuration for particular technology you use for `aggregator`.
+Consult Spring Boot https://docs.spring.io/spring-boot/docs/current/reference/html/[Reference Manual] for auto-configuration for particular technology you use for `aggregator`.
 
 The JDBC `JdbcMessageStore` requires particular tables in the target data base.
 You can find schema scripts for appropriate RDBMS vendors in the `org.springframework.integration.jdbc` package of the `spring-integration-jdbc` jar.
