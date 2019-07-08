@@ -74,7 +74,8 @@ public class AggregatorProcessorConfiguration {
 		MessageGroupProcessor groupProcessor = messageGroupProcessor.getIfAvailable();
 
 		if (groupProcessor == null) {
-			groupProcessor = new DefaultAggregatingMessageGroupProcessor();
+			groupProcessor = new Modified_DefaultAggregatingMessageGroupProcessor();
+			//groupProcessor = new DefaultAggregatingMessageGroupProcessor();
 			((BeanFactoryAware) groupProcessor).setBeanFactory(this.beanFactory);
 		}
 		aggregator.setProcessorBean(groupProcessor);
