@@ -136,6 +136,14 @@
 					<generatedApps>
 						<aggregator-processor/>
 					</generatedApps>
+					<enableContainerImageMetadata>true</enableContainerImageMetadata>
+					<metadataSourceTypeFilters>
+						<filter>org.springframework.cloud.stream.app.aggregator.processor.AggregatorProperties</filter>
+						<filter>org.springframework.boot.autoconfigure.mongo.MongoProperties</filter>
+						<filter>org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoProperties</filter>
+						<filter>org.springframework.boot.autoconfigure.data.redis.RedisProperties</filter>
+						<filter>org.springframework.boot.autoconfigure.jdbc.DataSourceProperties</filter>
+					</metadataSourceTypeFilters>
 				</configuration>
 			</plugin>
 		</plugins>
