@@ -20,7 +20,7 @@
 
 	<properties>
 		<!--TODO <spring-boot-geode.version>1.0.0 snap</spring-boot-geode.version>-->
-		<log4j2.version>2.13.3</log4j2.version>
+		<log4j2.version>2.17.0</log4j2.version>
 	</properties>
 
 	<dependencyManagement>
